@@ -1,0 +1,23 @@
+{
+  "name": "fancysnacks",
+  "description": "bower",
+  "main": "index.html",
+  "authors": [
+    "Sumanta Parida"
+  ],
+  "license": "ISC",
+  "keywords": [
+    "Sumanta",
+    "Parida\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D@Authore",
+    "sumanta\u001b[1;6D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[S\u001b[1;3C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[DParida"
+  ],
+  "homepage": "https://github.com/sumantaparida/food",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
