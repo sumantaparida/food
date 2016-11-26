@@ -1,0 +1,29 @@
+@import "bootstrap/_bootstrap.scss";
+@import "include.scss";
+@import "effect/effect";
+.nopadding {
+	@include nopadding;
+}
+.nomargin {
+	@include nomargin;
+}
+.divider { float: left; width: 100%; }
+
+// Header
+@import "header/header";
+// Home Page
+@import "home/home";
+// Slider
+@import "slider/slider";
+// Category Page
+@import "category/category";
+// Pdp Page
+@import "pdp/pdp";
+// Noresult Page
+@import "noresult/noresult";
+// NotFound Page
+@import "404/404";
+// maintainence Page
+@import "maintainence/maintainence";
+// Footer
+@import "footer/footer";

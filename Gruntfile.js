@@ -1,112 +1,167 @@
 'use strict';
-/**
- * Livereload and connect variables
- */
 var LIVERELOAD_PORT = 35729;
 var lrSnippet = require('connect-livereload')({
-  port: LIVERELOAD_PORT
+    port: LIVERELOAD_PORT
 });
 var mountFolder = function(connect, dir) {
-  return require('serve-static')(require('path').resolve(dir));
+    return require('serve-static')(require('path').resolve(dir));
 };
 
 module.exports = function(grunt) {
-    grunt.initConfig({
-        pkg: grunt.file.readJSON('package.json'),
-        project: {
-          src: 'source',
-          app: 'app',
-          assets: 'app',
-          css: ['<%= project.src %>/sass/style.scss'],
-          js: ['<%= project.src %>/js/*.js']
-        },
-        // SASS
-        sass: {                              // Task
-          dist: {                            // Target
-            options: {                       // Target options
-              style: 'expanded'
-            },
-            files: {                         // Dictionary of files
-              'app/css/style.css': '<%= project.css %>'
-            }
-          }
-        },
-        // CSS MIN
-        cssmin: {
-            options: {
-                shorthandCompacting: false,
-                roundingPrecision: -1
-            },
-            target: {
-                files: {
-                    'app/css/style.min.css': ['app/css/style.css']
-                }
-            }
-        },
+  require('load-grunt-tasks')(grunt);
 
-        // UGLIFY
-        uglify: {
+  // Project configuration.
+  grunt.initConfig({
+    pkg: grunt.file.readJSON('package.json'),
+    project: {
+        src: 'src',
+        app: 'app',
+        node_modules: 'node_modules',
+        bower_components: 'bower_components',
+        css: ['<%= project.app %>/css'],
+        scss: ['<%= project.src %>/scss/style.scss'],
+        js: ['<%= project.src %>/js/scripts.js'],
+        angular: ['<%= project.bower_components %>/angular/angular.js'],
+        angularrout: ['<%= project.bower_components %>/angular-route/angular-route.js'],
+        bootstrap: ['<%= project.bower_components %>/bootstrap/dist/js/bootstrap.min.js'],
+        jquery: ['<%= project.bower_components %>/jquery/dist/jquery.min.js']
+    },
+    connect: {
+        options: {
+            port: 9992,
+            hostname: '*'
+        },
+        livereload: {
             options: {
-                mangle: false
-            },
-            my_target: {
-                files: {
-                    'app/js/style.min.js': ['app/js/style.js']
+                middleware: function(connect) {
+                    return [lrSnippet, mountFolder(connect, 'app')];
                 }
             }
+        }
+    },
+    concat: {
+        dev: {
+            files: {'<%= project.app %>/js/scripts.min.js': '<%= project.js %>'}
         },
-        // OPEN
-        open: {
-          server: {
-            path: 'http://localhost:<%= connect.options.port %>'
-          }
-        },
-        // WATCH
-        watch: {
-          options: {livereload: true},
-          sass: {
-            // We watch and compile sass files as normal but don't live reload here
-            files: ['<%= project.src %>/sass/{,*/}*.{scss,sass}'],
-            tasks: ['sass', 'cssmin'],
+        script: {
+          src: [
+            '<%= project.src %>/js/navigation.js',
+            '<%= project.src %>/js/material-effect.js',
+            '<%= project.src %>/js/login.js'
+          ],
+          dest: '<%= project.src %>/js/craftsvilla.js'
+        }
+    },
+    sass: {
+      dev: {
+          options: {
+              style: 'expanded'
           },
-          livereload: {
+          files: {
+              '<%= project.app %>/css/craftsvilla.css': '<%= project.scss %>'
+          }
+      },
+      dist: {
+          options: {
+              style: 'expanded'
+          },
+          files: {
+              '<%= project.app %>/css/craftsvilla.css': '<%= project.scss %>'
+          }
+      }
+    },
+    cssmin: {
+      dev: {
+          files: {
+              '<%= project.app %>/css/craftsvilla.min.css': [
+                  //'<%= project.src %>/components/normalize-css/normalize.css',
+                  '<%= project.app %>/css/craftsvilla.css'
+              ]
+          }
+      },
+      dist: {
+          files: {
+              '<%= project.app %>/css/craftsvilla.min.css': [
+                  //'<%= project.src %>/components/normalize-css/normalize.css',
+                  '<%= project.app %>/css/craftsvilla.css'
+              ]
+          }
+      }
+    },
+    uglify: {
+      options: {
+        compress: {
+          warnings: false
+        },
+        mangle: true,
+        preserveComments: /^!|@preserve|@license|@cc_on/i
+      },
+      dev: {
+        files: {
+          // '<%= project.app %>/js/scripts.min.js': ['<%= project.js %>'],
+          '<%= project.app %>/js/jquery.min.js': ['<%= project.jquery %>'],
+          '<%= project.app %>/js/bootstrap.min.js': ['<%= project.bootstrap %>'],
+          '<%= project.app %>/js/angular.min.js': ['<%= project.angular %>'],
+          '<%= project.app %>/js/angular.rout.min.js': ['<%= project.angularrout %>'],
+          '<%= project.app %>/js/craftsvilla.min.js': ['<%= concat.script.dest %>']
+        }
+      },
+      dist: {
+        files: {
+          '<%= project.app %>/js/scripts.min.js': ['<%= project.js %>'],
+          '<%= project.app %>/js/bootstrap.min.js': ['<%= project.js %>']
+        }
+      }
+    },
+    open: {
+        server: {
+            path: 'http://localhost:<%= connect.options.port %>'
+        }
+    },
+    watch: {
+        concat: {
+            files: '<%= project.src %>/js/{,*/}*.js',
+            tasks: ['concat:dev', 'concat:script', 'uglify:dev']
+        },
+        sass: {
+            files: '<%= project.src %>/scss/{,*/}*.{scss,sass}',
+            tasks: ['sass:dev', 'cssmin:dev']
+        },
+        livereload: {
             options: {
-              livereload: LIVERELOAD_PORT
+                livereload: LIVERELOAD_PORT
             },
             files: [
-              '<%= project.app %>/{,*/}*.html',
-              '<%= project.app %>/css/*.css',
-              '<%= project.app %>/js/{,*/}*.js',
-              '<%= project.app %>/{,*/}*.{png,jpg,jpeg,gif,webp,svg}'
+                '<%= project.app %>/{,*/}*.html',
+                '<%= project.app %>/css/*.css',
+                '<%= project.app %>/js/{,*/}*.js',
+                '<%= project.app %>/{,*/}*.{png,jpg,jpeg,gif,webp,svg}'
             ]
-          }
-        },
-        //  Connect
-        connect: {
-          options: {
-            port: 9999,
-            hostname: '*'
-          },
-          livereload: {
-            options: {
-              middleware: function(connect) {
-                return [lrSnippet, mountFolder(connect, 'app')];
-              }
-            }
-          }
         }
+    },
+    cacheBust: {
+      js: {
+           options: {
+               baseDir: '<%= project.app %>/',
+               assets: ['js/craftsvilla.min.js']
+           },
+           src: ['<%= project.app %>/index.html']
+       },
+    }
 
-    });
+  });
 
-    grunt.loadNpmTasks('grunt-contrib-sass');
-    grunt.loadNpmTasks('grunt-contrib-cssmin');
-    grunt.loadNpmTasks('grunt-contrib-uglify');
-    grunt.loadNpmTasks('grunt-contrib-watch');
-    grunt.loadNpmTasks('grunt-contrib-connect');
-    grunt.loadNpmTasks('grunt-open');
-
-    grunt.registerTask('test', ['sass', 'cssmin', 'uglify']);
-    // grunt.registerTask('server', ['express','watch']);
-    grunt.registerTask('default', ['connect:livereload', 'open', 'watch']);
+  // Default task(s).
+  grunt.registerTask('default', [
+      'sass:dev',
+      //'bower:dev',
+      'uglify:dev',
+      'cssmin:dev',
+      'concat:dev',
+      'concat:script',
+      'connect:livereload',
+      'open',
+      'watch'
+  ]);
 
 };

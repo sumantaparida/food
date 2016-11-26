@@ -1,34 +1,33 @@
 {
-  "name": "fancysnacks",
+  "name": "craftsvilla2",
   "version": "1.0.0",
-  "description": "",
+  "description": "Craftsvilla Version 2",
   "main": "index.html",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/sumantaparida/food.git"
+    "url": "git+https://github.com/sumantaparida/craftsvilla2.git"
   },
-  "keywords": [
-    "Sumanta",
-    "Parida\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D@Authore",
-    "sumanta\u001b[1;6D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[S\u001b[1;3C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[DParida"
-  ],
   "author": "Sumanta Parida",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/sumantaparida/food/issues"
+    "url": "https://github.com/sumantaparida/craftsvilla2/issues"
   },
-  "homepage": "https://github.com/sumantaparida/food#readme",
+  "homepage": "https://github.com/sumantaparida/craftsvilla2#readme",
   "devDependencies": {
+    "angular": "^1.5.9",
+    "connect-livereload": "^0.6.0",
     "grunt": "^1.0.1",
+    "grunt-cache-bust": "^1.4.1",
+    "grunt-contrib-concat": "^1.0.1",
     "grunt-contrib-connect": "^1.0.2",
-    "grunt-contrib-cssmin": "^1.0.1",
+    "grunt-contrib-cssmin": "^1.0.2",
     "grunt-contrib-sass": "^1.0.0",
     "grunt-contrib-uglify": "^2.0.0",
     "grunt-contrib-watch": "^1.0.0",
     "grunt-open": "^0.2.3",
-    "grunt-sass": "^1.2.0"
+    "load-grunt-tasks": "^3.5.2"
   }
 }

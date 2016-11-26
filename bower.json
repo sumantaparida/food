@@ -1,17 +1,12 @@
 {
-  "name": "fancysnacks",
-  "description": "bower",
+  "name": "craftsvilla2",
+  "description": "Craftsvilla Version 2",
   "main": "index.html",
   "authors": [
     "Sumanta Parida"
   ],
   "license": "ISC",
-  "keywords": [
-    "Sumanta",
-    "Parida\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D@Authore",
-    "sumanta\u001b[1;6D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[S\u001b[1;3C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[DParida"
-  ],
-  "homepage": "https://github.com/sumantaparida/food",
+  "homepage": "https://github.com/sumantaparida/craftsvilla2",
   "private": true,
   "ignore": [
     "**/.*",
@@ -19,5 +14,13 @@
     "bower_components",
     "test",
     "tests"
-  ]
+  ],
+  "dependencies": {
+    "jquery": "^3.1.1",
+    "bootstrap": "^3.3.7"
+  },
+  "devDependencies": {
+    "angular": "^1.5.9",
+    "angular-route": "^1.5.9"
+  }
 }
