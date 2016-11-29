@@ -1,5 +1,5 @@
 'use strict';
-var LIVERELOAD_PORT = 35729;
+var LIVERELOAD_PORT = 35731;
 var lrSnippet = require('connect-livereload')({
     port: LIVERELOAD_PORT
 });
@@ -28,7 +28,7 @@ module.exports = function(grunt) {
     },
     connect: {
         options: {
-            port: 9992,
+            port: 9994,
             hostname: '*'
         },
         livereload: {
@@ -98,7 +98,7 @@ module.exports = function(grunt) {
       },
       dev: {
         files: {
-          // '<%= project.app %>/js/scripts.min.js': ['<%= project.js %>'],
+          '<%= project.app %>/js/scripts.min.js': ['<%= project.js %>'],
           '<%= project.app %>/js/jquery.min.js': ['<%= project.jquery %>'],
           '<%= project.app %>/js/bootstrap.min.js': ['<%= project.bootstrap %>'],
           '<%= project.app %>/js/angular.min.js': ['<%= project.angular %>'],
@@ -157,7 +157,7 @@ module.exports = function(grunt) {
       //'bower:dev',
       'uglify:dev',
       'cssmin:dev',
-      'concat:dev',
+      //'concat:dev',
       'concat:script',
       'connect:livereload',
       'open',

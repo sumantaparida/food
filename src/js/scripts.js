@@ -1,7 +1,7 @@
 var app = angular.module("app", ["ngRoute"]);
-app.config(function($routeProvider) {
-    $routeProvider
-    .when("/", {
+app.config(['$routeProvider', function($routeProvider) {
+
+    $routeProvider.when("/", {
         template : "<h1>Main</h1><p>Click on the links to change this content sumanta</p>"
     })
     .when("/red", {
@@ -13,4 +13,6 @@ app.config(function($routeProvider) {
     .when("/blue", {
         template : "<h1>Main</h1><p>Click on the links to change this content</p>"
     });
-});
+
+  }
+]);
